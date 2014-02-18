@@ -40,7 +40,7 @@ public class Main {
 		return result;
 	}
 
-	void eval(Map<String, List<Pair>> gs, Map<String, List<Pair>> test) 
+	void eval(Map<String, List<Pair>> gs, Map<String, List<Pair>> ts) 
 	{
 		no_tweets = gs.size();
 
@@ -51,9 +51,9 @@ public class Main {
 			
 			no_pairs += gs_pairs.size();
 			
-			if ( test.containsKey(gs_tweetid) )
+			if ( ts.containsKey(gs_tweetid) )
 			{
-				List<Pair> ts_pairs = test.get(gs_tweetid);
+				List<Pair> ts_pairs = ts.get(gs_tweetid);
 				no_found += ts_pairs.size();
 				
 				// preserve the order
