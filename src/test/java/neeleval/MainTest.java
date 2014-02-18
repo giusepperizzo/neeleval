@@ -127,8 +127,13 @@ public class MainTest extends TestCase {
 			assertEquals(expected, actual);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		
+		}	
 	}
+	
+	public void testMain() {
+		Main main = new Main();
+		String filenames[] = {"utils/gs.tsv","utils/test5.tsv"};
+		main.main(filenames);
+	}
+	
 }
