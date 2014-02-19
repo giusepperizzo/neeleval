@@ -1,23 +1,23 @@
 package neeleval;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Pair implements Comparable<Pair>{
 	
 	private String entityMention;
-	private URI URI;
+	private URL URL;
 	
 	public int compareTo(Pair o) {
-		return (this.entityMention.equals(o.entityMention) && this.URI.equals(o.URI) ) ? 
+		return (this.entityMention.equals(o.entityMention) && this.URL.equals(o.URL) ) ? 
 				1 : 0;
 	}
 	
-	public Pair(String entityMention, String URI) {
+	public Pair(String entityMention, String URL) {
 		this.entityMention = entityMention;
 		try {
-			this.URI = new URI (URI);
-		} catch (URISyntaxException e) {
+			this.URL = new URL (URL);
+		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
 	}

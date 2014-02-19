@@ -1,6 +1,7 @@
 package neeleval;
 
-
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,7 +124,7 @@ public class MainTest extends TestCase {
 		try {
 			HashMap<String,List<Pair>> set = main.readSet("utils/test.tsv");
 			int actual = set.size();
-			int expected = 2;
+			int expected = 1;
 			assertEquals(expected, actual);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -135,5 +136,18 @@ public class MainTest extends TestCase {
 		String filenames[] = {"utils/gs.tsv","utils/test5.tsv"};
 		main.main(filenames);
 	}
+	
+	public void testURI () {
+		URL actual;
+		try {
+		  //url1 = URL.parse("http://dbpedia.org/resource/Olivia_\"Bong\"_Coo");
+		   actual = new URL("http://dbpedia.org/resource/Olivia_\"Bong\"_Coo");
+ 		   String expected = "http://dbpedia.org/resource/Olivia_\"Bong\"_Coo";
+ 		   assertEquals(expected, actual);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 }
