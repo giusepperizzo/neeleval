@@ -10,7 +10,7 @@ import java.util.Map;
 import junit.framework.TestCase;
 
 public class MainTest extends TestCase {
-		
+	
 	public void testEval1() {
 		
 		List<Pair> gs_pairs = new ArrayList<Pair>();
@@ -36,13 +36,13 @@ public class MainTest extends TestCase {
 		double expected = 1;
 		
 		double actual = main.precision();
-		assertEquals(expected, actual, 1);
+		assertEquals(expected, actual);
 		
 		actual = main.recall();
-		assertEquals(expected, actual, 1);
+		assertEquals(expected, actual);
 		
 		actual = main.F1();
-		assertEquals(expected, actual, 1);
+		assertEquals(expected, actual);
 	}
 	
 	public void testEval2() {
@@ -67,16 +67,16 @@ public class MainTest extends TestCase {
 		
 		Main main = new Main();
 		main.eval(gs, ts);
-		double expected = 1;
-		
+
+		double expected = 0.75;
 		double actual = main.precision();
-		assertEquals(expected, actual, 0.5);
+		assertEquals(expected, actual);
 		
 		actual = main.recall();
-		assertEquals(expected, actual, 0.5);
+		assertEquals(expected, actual);
 		
 		actual = main.F1();
-		assertEquals(expected, actual, 0.5);
+		assertEquals(expected, actual);
 	}
 	
 	
@@ -105,18 +105,81 @@ public class MainTest extends TestCase {
 		Main main = new Main();
 		main.eval(gs, ts);
 		
-		
 		double actual = main.precision();
-		double expected = 0.16;
-		assertEquals(expected, actual, 0.05);
+		double expected = 0.5;
+		assertEquals(expected, actual);
 		
 		actual = main.recall();
-		expected = 0.25;
-		assertEquals(expected, actual, 0.05);
+		expected = 0.75;
+		assertEquals(expected, actual);
 		
 		actual = main.F1();
-		expected = 0.2;
-		assertEquals(expected, actual, 0.05);
+		expected = 0.6;
+		assertEquals(expected, actual);
+	}
+	
+	public void testEval4() {
+		
+		List<Pair> gs_pairs = new ArrayList<Pair>();
+		gs_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+		gs_pairs.add(new Pair("2012 US Election", "http://dbpedia.org/resource/United_States_presidential_election,_2012"));
+		gs_pairs.add(new Pair("Harward", "http://dbpedia.org/resource/Harvard_University"));
+		
+		List<Pair> ts_pairs = new ArrayList<Pair>();
+		ts_pairs.add(new Pair("2012 US Election", "http://dbpedia.org/resource/United_States_presidential_election,_2012"));
+		ts_pairs.add(new Pair("Election", "http://dbpedia.org/resource/Election"));
+		ts_pairs.add(new Pair("Harward", "http://dbpedia.org/resource/Harvard_University"));
+		
+		Map<String, List<Pair>> gs = new HashMap<String, List<Pair>>();
+		gs.put("1", gs_pairs);
+		Map<String, List<Pair>> ts = new HashMap<String, List<Pair>>();
+		ts.put("1", ts_pairs);
+		
+		Main main = new Main();
+		main.eval(gs, ts);
+				
+		double actual = main.precision();
+		double expected = 0.66;
+		assertEquals(expected, actual, 0.01);
+		
+		actual = main.recall();
+		assertEquals(expected, actual, 0.01);
+		
+		actual = main.F1();
+		assertEquals(expected, actual, 0.01);
+	}	
+	
+	public void testEval5() {
+		List<Pair> gs_pairs = new ArrayList<Pair>();
+		gs_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+		gs_pairs.add(new Pair("2012 US Election", "http://dbpedia.org/resource/United_States_presidential_election,_2012"));
+		gs_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+		gs_pairs.add(new Pair("Harward", "http://dbpedia.org/resource/Harvard_University"));
+		
+		List<Pair> ts_pairs = new ArrayList<Pair>();
+		ts_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+		ts_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+		ts_pairs.add(new Pair("2012 US Election", "http://dbpedia.org/resource/United_States_presidential_election,_2012"));
+		ts_pairs.add(new Pair("Harward", "http://dbpedia.org/resource/Harvard_University"));
+		
+		
+		Map<String, List<Pair>> gs = new HashMap<String, List<Pair>>();
+		gs.put("1", gs_pairs);
+		Map<String, List<Pair>> ts = new HashMap<String, List<Pair>>();
+		ts.put("1", ts_pairs);
+		
+		Main main = new Main();
+		main.eval(gs, ts);
+		double expected = 0.75;
+		
+		double actual = main.precision();
+		assertEquals(expected, actual);
+		
+		actual = main.recall();
+		assertEquals(expected, actual);
+		
+		actual = main.F1();
+		assertEquals(expected, actual);
 	}
 	
 	public void testRead() {
@@ -143,7 +206,7 @@ public class MainTest extends TestCase {
 		  //url1 = URL.parse("http://dbpedia.org/resource/Olivia_\"Bong\"_Coo");
 		   actual = new URL("http://dbpedia.org/resource/Olivia_\"Bong\"_Coo");
  		   String expected = "http://dbpedia.org/resource/Olivia_\"Bong\"_Coo";
- 		   assertEquals(expected, actual);
+ 		   assertEquals(expected, actual.toString());
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

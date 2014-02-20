@@ -56,14 +56,30 @@ public class Main {
                 List<Pair> ts_pairs = ts.get(gs_tweetid);
                 no_found += ts_pairs.size();
                 
-                // preserve the order
-                for (int i = 0; i < gs_pairs.size() && i < ts_pairs.size(); i++) 
-                    no_correct += gs_pairs.get(i).compareTo(ts_pairs.get(i));    
+                no_correct += longestOrderedCommonSubsequence(gs_pairs, ts_pairs);                
             }
         }
     }
     
-    double precision () {
+    private int longestOrderedCommonSubsequence(List<Pair> gs_pairs, List<Pair> ts_pairs) 
+    {
+      int order = 0;
+      int correct = 0;
+      boolean found;
+      for (int i = 0; i< ts_pairs.size(); i++) {
+      	found = false;
+      	for (int j=order; j< gs_pairs.size() && !found; j++) {
+         		if(ts_pairs.get(i).compareTo(gs_pairs.get(j)) == 1) {
+      			order = j+1;
+      			found = true;
+      			correct += 1;
+      		}
+      	}
+      }
+      return correct;
+	}
+
+	double precision () {
         return no_correct / (1.0 * no_found);
     }
     
@@ -72,7 +88,9 @@ public class Main {
     }
     
     double F1 () {
-        return (2 * precision() * recall() )/ (1.0 * (precision() + recall()) );
+        return (precision() == 0 && recall() ==0 ) ? 
+        		0 : 
+        		(2 * precision() * recall() )/ (1.0 * (precision() + recall()) );
     }
     
     void print() 
