@@ -1,13 +1,13 @@
 package neeleval;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import org.apache.commons.io.FileUtils;
 
 public class Main {
     
@@ -55,14 +55,22 @@ public class Main {
             {
                 List<Pair> ts_pairs = ts.get(gs_tweetid);
                 no_found += ts_pairs.size();
-                
-                // preserve the order
-                for (int i = 0; i < gs_pairs.size() && i < ts_pairs.size(); i++) 
-                    no_correct += gs_pairs.get(i).compareTo(ts_pairs.get(i));    
+                no_correct += longestCommonSubsequence(gs_pairs, ts_pairs);
             }
         }
     }
-    
+
+    int longestCommonSubsequence(List<Pair> gs_pairs, List<Pair> ts_pairs) {
+        if (gs_pairs.size() == 0 || ts_pairs.size() == 0)
+            return 0;
+        if (gs_pairs.get(0).equals(ts_pairs.get(0)))
+            return 1 + longestCommonSubsequence(gs_pairs.subList(1, gs_pairs.size()), ts_pairs.subList(1, ts_pairs.size()));
+        return Math.max(
+                longestCommonSubsequence(gs_pairs, ts_pairs.subList(1, ts_pairs.size())),
+                longestCommonSubsequence(gs_pairs.subList(1, gs_pairs.size()), ts_pairs)
+        );
+    }
+
     double precision () {
         return no_correct / (1.0 * no_found);
     }
