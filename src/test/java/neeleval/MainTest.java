@@ -1,13 +1,13 @@
 package neeleval;
 
+import junit.framework.TestCase;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import junit.framework.TestCase;
 
 public class MainTest extends TestCase {
 	
@@ -47,60 +47,53 @@ public class MainTest extends TestCase {
 	
 	public void testEval2() {
 		
-		List<Pair> gs_pairs = new ArrayList<Pair>();
-		gs_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
-		gs_pairs.add(new Pair("2012 US Election", "http://dbpedia.org/resource/United_States_presidential_election,_2012"));
-		gs_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
-		gs_pairs.add(new Pair("Harward", "http://dbpedia.org/resource/Harvard_University"));
-		
-		List<Pair> ts_pairs = new ArrayList<Pair>();
-		ts_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
-		ts_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
-		ts_pairs.add(new Pair("2012 US Election", "http://dbpedia.org/resource/United_States_presidential_election,_2012"));
-		ts_pairs.add(new Pair("Harward", "http://dbpedia.org/resource/Harvard_University"));
-		
-		
-		Map<String, List<Pair>> gs = new HashMap<String, List<Pair>>();
-		gs.put("1", gs_pairs);
-		Map<String, List<Pair>> ts = new HashMap<String, List<Pair>>();
-		ts.put("1", ts_pairs);
-		
+		Map<String, List<Pair>> gs = new HashMap<String, List<Pair>>() {{
+            put("1", new ArrayList<Pair>() {{
+                add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+                add(new Pair("2012 US Election", "http://dbpedia.org/resource/United_States_presidential_election,_2012"));
+                add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+                add(new Pair("Harward", "http://dbpedia.org/resource/Harvard_University"));
+            }});
+        }};
+
+		Map<String, List<Pair>> ts = new HashMap<String, List<Pair>>() {{
+            put("1", new ArrayList<Pair>() {{
+                add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+                add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+                add(new Pair("2012 US Election", "http://dbpedia.org/resource/United_States_presidential_election,_2012"));
+                add(new Pair("Harward", "http://dbpedia.org/resource/Harvard_University"));
+            }});
+        }};
+
 		Main main = new Main();
 		main.eval(gs, ts);
 
-		double expected = 0.75;
-		double actual = main.precision();
-		assertEquals(expected, actual);
-		
-		actual = main.recall();
-		assertEquals(expected, actual);
-		
-		actual = main.F1();
-		assertEquals(expected, actual);
+		assertEquals(0.75, main.precision(), 0.001);
+		assertEquals(0.75, main.recall(), 0.001);
+		assertEquals(0.75, main.F1(), 0.001);
 	}
-	
-	
+
 	public void testEval3() {
-		
-		List<Pair> gs_pairs = new ArrayList<Pair>();
-		gs_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
-		gs_pairs.add(new Pair("2012 US Election", "http://dbpedia.org/resource/United_States_presidential_election,_2012"));
-		gs_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
-		gs_pairs.add(new Pair("Harward", "http://dbpedia.org/resource/Harvard_University"));
-		
-		List<Pair> ts_pairs = new ArrayList<Pair>();
-		ts_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
-		ts_pairs.add(new Pair("2012", "http://dbpedia.org/resource/2012"));
-		ts_pairs.add(new Pair("US", "http://dbpedia.org/page/United_States"));
-		ts_pairs.add(new Pair("Election", "http://dbpedia.org/resource/Election"));
-		ts_pairs.add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
-		ts_pairs.add(new Pair("Harward", "http://dbpedia.org/resource/Harvard_University"));
-		
-		
-		Map<String, List<Pair>> gs = new HashMap<String, List<Pair>>();
-		gs.put("1", gs_pairs);
-		Map<String, List<Pair>> ts = new HashMap<String, List<Pair>>();
-		ts.put("1", ts_pairs);
+
+        Map<String, List<Pair>> gs = new HashMap<String, List<Pair>>() {{
+            put("1", new ArrayList<Pair>() {{
+                add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+                add(new Pair("2012 US Election", "http://dbpedia.org/resource/United_States_presidential_election,_2012"));
+                add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+                add(new Pair("Harward", "http://dbpedia.org/resource/Harvard_University"));
+            }});
+        }};
+
+        Map<String, List<Pair>> ts = new HashMap<String, List<Pair>>() {{
+            put("1", new ArrayList<Pair>() {{
+                add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+                add(new Pair("2012", "http://dbpedia.org/resource/2012"));
+                add(new Pair("US", "http://dbpedia.org/page/United_States"));
+                add(new Pair("Election", "http://dbpedia.org/resource/Election"));
+                add(new Pair("Obama", "http://dbpedia.org/resource/Barack_Obama"));
+                add(new Pair("Harward", "http://dbpedia.org/resource/Harvard_University"));
+            }});
+        }};
 		
 		Main main = new Main();
 		main.eval(gs, ts);
@@ -170,25 +163,17 @@ public class MainTest extends TestCase {
 		
 		Main main = new Main();
 		main.eval(gs, ts);
-		double expected = 0.75;
-		
-		double actual = main.precision();
-		assertEquals(expected, actual);
-		
-		actual = main.recall();
-		assertEquals(expected, actual);
-		
-		actual = main.F1();
-		assertEquals(expected, actual);
+
+		assertEquals(0.75, main.precision(), 0.001);
+		assertEquals(0.75, main.recall(), 0.001);
+		assertEquals(0.75, main.F1(), 0.001);
 	}
 	
 	public void testRead() {
 		Main main = new Main();
 		try {
 			HashMap<String,List<Pair>> set = main.readSet("utils/test.tsv");
-			int actual = set.size();
-			int expected = 1;
-			assertEquals(expected, actual);
+			assertEquals(1, set.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
