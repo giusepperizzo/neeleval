@@ -63,7 +63,7 @@ public class Main {
     int longestCommonSubsequence(List<Pair> gs_pairs, List<Pair> ts_pairs) {
         if (gs_pairs.size() == 0 || ts_pairs.size() == 0)
             return 0;
-        if (gs_pairs.get(0).compareTo(ts_pairs.get(0)) == 1)
+        if (gs_pairs.get(0).equals(ts_pairs.get(0)))
             return 1 + longestCommonSubsequence(gs_pairs.subList(1, gs_pairs.size()), ts_pairs.subList(1, ts_pairs.size()));
         return Math.max(
                 longestCommonSubsequence(gs_pairs, ts_pairs.subList(1, ts_pairs.size())),

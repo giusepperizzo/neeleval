@@ -3,15 +3,17 @@ package neeleval;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class Pair implements Comparable<Pair>{
+public class Pair{
 	
 	private String entityMention;
 	private URL URL;
-	
-	public int compareTo(Pair o) {
-		return (this.entityMention.equals(o.entityMention) && this.URL.equals(o.URL) ) ? 
-				1 : 0;
-	}
+
+	public boolean equals(Object object) {
+        return object != null
+                && object instanceof Pair
+                && this.entityMention.equals(((Pair) object).entityMention)
+                && this.URL.equals(((Pair) object).URL);
+    }
 	
 	public Pair(String entityMention, String URL) {
 		this.entityMention = entityMention;
@@ -21,6 +23,4 @@ public class Pair implements Comparable<Pair>{
 			e.printStackTrace();
 		}
 	}
-	
-	
 }
