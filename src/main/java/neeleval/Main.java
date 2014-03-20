@@ -25,7 +25,8 @@ public class Main {
         for (String line : lines) {
             String[] tokens = line.split("\t");
         
-            if ( (tokens.length -1) % 2  == 1 ) throw new Exception("Malformed File " + filename);
+            if ( (tokens.length -1) % 2  == 1 ) 
+            	throw new Exception("Malformed File " + filename + ". id=" + tokens[0]);
                 
             String tweetid = tokens[0];
             ArrayList<Pair> pairs = new ArrayList<Pair>();
@@ -91,24 +92,24 @@ public class Main {
     }
 
     double precision () {
-        return no_correct / (1.0 * no_found);
+        return 100 * no_correct / (1.0 * no_found);
     }
     
     double recall () {
-        return no_correct / (1.0 * no_pairs);
+        return 100* no_correct / (1.0 * no_pairs);
     }
     
     double F1 () {
         return (precision() == 0 && recall() ==0 ) ? 
         		0 : 
-        		(2 * precision() * recall() )/ (1.0 * (precision() + recall()) );
+        		(2 * precision() * recall() )/(1.0 * (precision() + recall()) );
     }
     
     void print() 
     {
         System.out.printf("processed %d tweets with %d pairs; "+
                           "found: %d; correct: %d.\n", no_tweets, no_pairs, no_found, no_correct);
-        System.out.printf("precision:  %.3f; recal: %.3f; F1:  %.3f\n", precision(), recall(), F1());
+        System.out.printf("precision:  %.2f; recal: %.2f; F1:  %.2f\n", precision(), recall(), F1());
     }
     
     public static void main(String[] args) 
