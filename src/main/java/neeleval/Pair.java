@@ -23,4 +23,28 @@ public class Pair{
 			e.printStackTrace();
 		}
 	}
+	
+	public String serialize() 
+	{
+		return "\t"
+				.concat(entityMention)
+				.concat("\t")
+				.concat(URL.toString());
+	}
+	
+	public String getEntityMention() {
+		return entityMention;
+	}
+
+	public void setEntityMention(String entityMention) {
+		this.entityMention = entityMention;
+	}
+
+	public URL getURL() {
+		return URL;
+	}
+
+	public void setURL(URL uRL) {
+		URL = uRL;
+	}	
 }
