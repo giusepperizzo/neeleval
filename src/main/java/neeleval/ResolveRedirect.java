@@ -76,19 +76,19 @@ public class ResolveRedirect {
 	
     protected Pair resolveRedirect(Pair p) 
     {
+        String urlResolved = p.getURL().toString();
+
     	String arrSQL =
                 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "PREFIX dbo: <http://dbpedia.org/ontology/>" + "\n"
                 + "SELECT ?redirectsTo WHERE {"
-                + "<" + p.getURL().toString() + "> dbo:wikiPageRedirects ?redirectsTo" + ".}"
-        ;
-    	    	
-    	Query query = QueryFactory.create(arrSQL);
-        QueryExecution qExe =
-                QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
+                + "<" + urlResolved + "> dbo:wikiPageRedirects ?redirectsTo" + ".}"; 	    	
 
-        String urlResolved = p.getURL().toString();
         try{
+	    	Query query = QueryFactory.create(arrSQL);
+	        QueryExecution qExe =
+	                QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
+
 	        com.hp.hpl.jena.query.ResultSet results2 = qExe.execSelect();
 			for ( ;results2.hasNext(); ) {
 			    QuerySolution soln = results2.nextSolution();
