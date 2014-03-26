@@ -82,9 +82,7 @@ public class ResolveRedirect {
                 + "SELECT ?redirectsTo WHERE {"
                 + "<" + p.getURL().toString() + "> dbo:wikiPageRedirects ?redirectsTo" + ".}"
         ;
-    	
-    	System.out.printf("\t%s\n" , p.getURL().toString());
-    	
+    	    	
     	Query query = QueryFactory.create(arrSQL);
         QueryExecution qExe =
                 QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
@@ -95,13 +93,14 @@ public class ResolveRedirect {
 			for ( ;results2.hasNext(); ) {
 			    QuerySolution soln = results2.nextSolution();
 			    urlResolved = soln.getResource("redirectsTo").getURI();
-			    System.out.printf("%s ->%s\n",p.getURL().toString(), urlResolved);
 			}
 			
 			qExe.close();
         }catch(Exception e) {	
         	e.printStackTrace();
         }
+        
+	    System.out.printf("\t%s -> %s\n",p.getURL().toString(), urlResolved);
 
     	return new Pair(p.getEntityMention(), urlResolved);
 	}
