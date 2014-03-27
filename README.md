@@ -15,7 +15,7 @@ where:
 * GS (Gold Standard) tab separated file. Each line should contain i) tweetid, entityMention1, entityURI1, ... , entityMentionN, entityURIN
 * TS (Test Set) tab separated file. Each line should contain i) tweetid, entityMention1, entityURI1, ... , entityMentionN, entityURIN
 
-outputs
+outputs:
 * precision, recall, and F1
 
 ##### Redirect: resolve ann redirects
