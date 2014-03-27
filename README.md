@@ -9,7 +9,7 @@ neeleval
 
 ##### Evaluate: compute F1, R, P figures
 
-java -cp neeleval.jar neeleval.Evaluate <GS> <TS>
+java -cp neeleval.jar neeleval.Evaluate GS TS
 
 where:
 * GS (Gold Standard) tab separated file. Each line should contain i) tweetid, entityMention1, entityURI1, ... , entityMentionN, entityURIN
@@ -20,7 +20,7 @@ outputs:
 
 ##### Redirect: resolve ann redirects
 
-java -cp neeleval.jar neeleval.ResolveRedirect <TS> </path/where/to/save/TS/with/redirects>
+java -cp neeleval.jar neeleval.ResolveRedirect TS /path/where/to/save/TS/with/redirects
 
 where:
 * TS (Test Set) tab separated file. Each line should contain i) tweetid, entityMention1, entityURI1, ... , entityMentionN, entityURIN
