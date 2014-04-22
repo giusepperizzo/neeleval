@@ -33,16 +33,15 @@ public class EvaluateTest extends TestCase {
 		
 		Evaluate main = new Evaluate();
 		main.eval(gs, ts);
-		double expected = 1;
 		
 		double actual = main.precision();
-		assertEquals(expected, actual);
+		assertEquals(100.0, actual);
 		
 		actual = main.recall();
-		assertEquals(expected, actual);
+		assertEquals(100.0, actual);
 		
 		actual = main.F1();
-		assertEquals(expected, actual);
+		assertEquals(100.0, actual);
 	}
 	
 	public void testEval2() {
@@ -68,9 +67,9 @@ public class EvaluateTest extends TestCase {
         Evaluate main = new Evaluate();
 		main.eval(gs, ts);
 
-		assertEquals(0.75, main.precision(), 0.001);
-		assertEquals(0.75, main.recall(), 0.001);
-		assertEquals(0.75, main.F1(), 0.001);
+		assertEquals(75, main.precision(), 0.1);
+		assertEquals(75, main.recall(), 0.1);
+		assertEquals(75, main.F1(), 0.1);
 	}
 
 	public void testEval3() {
@@ -99,15 +98,15 @@ public class EvaluateTest extends TestCase {
 		main.eval(gs, ts);
 		
 		double actual = main.precision();
-		double expected = 0.5;
+		double expected = 50;
 		assertEquals(expected, actual);
 		
 		actual = main.recall();
-		expected = 0.75;
+		expected = 75;
 		assertEquals(expected, actual);
 		
 		actual = main.F1();
-		expected = 0.6;
+		expected = 60;
 		assertEquals(expected, actual);
 	}
 	
@@ -132,14 +131,14 @@ public class EvaluateTest extends TestCase {
 		main.eval(gs, ts);
 				
 		double actual = main.precision();
-		double expected = 0.66;
-		assertEquals(expected, actual, 0.01);
+		double expected = 66;
+		assertEquals(expected, actual, 1);
 		
 		actual = main.recall();
-		assertEquals(expected, actual, 0.01);
+		assertEquals(expected, actual, 1);
 		
 		actual = main.F1();
-		assertEquals(expected, actual, 0.01);
+		assertEquals(expected, actual, 1);
 	}	
 	
 	public void testEval5() {
@@ -164,9 +163,9 @@ public class EvaluateTest extends TestCase {
 		Evaluate main = new Evaluate();
 		main.eval(gs, ts);
 
-		assertEquals(0.75, main.precision(), 0.001);
-		assertEquals(0.75, main.recall(), 0.001);
-		assertEquals(0.75, main.F1(), 0.001);
+		assertEquals(75, main.precision(), 0.1);
+		assertEquals(75, main.recall(), 0.1);
+		assertEquals(75, main.F1(), 0.1);
 	}
 	
 	public void testRead() {
