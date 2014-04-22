@@ -44,9 +44,9 @@ public class Evaluate {
     void eval(Map<String, List<Pair>> gs, Map<String, List<Pair>> ts) 
     {
         no_tweets = gs.size();
-
+                
         for(Entry<String,List<Pair>> e : gs.entrySet() ) 
-        {
+        {       	
             String gs_tweetid = e.getKey();
             List<Pair> gs_pairs = e.getValue(); 
             
@@ -57,28 +57,28 @@ public class Evaluate {
                 List<Pair> ts_pairs = ts.get(gs_tweetid);
                 no_found += ts_pairs.size();
                 
-                no_correct += longestCommonSubsequence(gs_pairs, ts_pairs);                
+                no_correct += longestOrderedCommonSubsequence(gs_pairs, ts_pairs);   
             }
         }
     }
     
-//    private int longestOrderedCommonSubsequence(List<Pair> gs_pairs, List<Pair> ts_pairs) 
-//    {
-//      int order = 0;
-//      int correct = 0;
-//      boolean found;
-//      for (int i = 0; i< ts_pairs.size(); i++) {
-//      	found = false;
-//      	for (int j=order; j< gs_pairs.size() && !found; j++) {
-//         		if(ts_pairs.get(i).equals(gs_pairs.get(j))) {
-//      			order = j+1;
-//      			found = true;
-//      			correct += 1;
-//      		}
-//      	}
-//      }
-//      return correct;
-//	}
+    private int longestOrderedCommonSubsequence(List<Pair> gs_pairs, List<Pair> ts_pairs) 
+    {
+      int order = 0;
+      int correct = 0;
+      boolean found;
+      for (int i = 0; i< ts_pairs.size(); i++) {
+      	found = false;
+      	for (int j=order; j< gs_pairs.size() && !found; j++) {
+         		if(ts_pairs.get(i).equals(gs_pairs.get(j))) {
+      			order = j+1;
+      			found = true;
+      			correct += 1;
+      		}
+      	}
+      }
+      return correct;
+	}
 
     int longestCommonSubsequence(List<Pair> gs_pairs, List<Pair> ts_pairs) {
         if (gs_pairs.size() == 0 || ts_pairs.size() == 0)
