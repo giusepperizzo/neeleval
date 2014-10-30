@@ -18,7 +18,7 @@ where:
 outputs:
 * precision, recall, and F1
 
-##### Redirect: resolve ann redirects
+##### Redirect: resolve redirects
 
 java -cp neeleval.jar neeleval.ResolveRedirect TS /path/where/to/save/TS/with/redirects
 
