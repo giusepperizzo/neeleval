@@ -1,13 +1,13 @@
 package neeleval;
 
-import junit.framework.TestCase;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import junit.framework.TestCase;
 
 public class EvaluateTest extends TestCase {
 	
@@ -171,7 +171,7 @@ public class EvaluateTest extends TestCase {
 	public void testRead() {
 		Evaluate main = new Evaluate();
 		try {
-			HashMap<String,List<Pair>> set = main.readSet("utils/test.tsv");
+			HashMap<String,List<Pair>> set = new Util().readSet("utils/test.tsv");
 			assertEquals(1, set.size());
 		} catch (Exception e) {
 			e.printStackTrace();

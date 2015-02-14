@@ -1,10 +1,5 @@
 package neeleval;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -17,30 +12,6 @@ public class Evaluate {
     private int no_correct = 0;
     private int no_found = 0;
     
-    HashMap<String, List<Pair>> readSet(String filename) throws Exception 
-    {
-        HashMap<String, List<Pair>> result = new HashMap<String, List<Pair>>();
-        List<String> lines = FileUtils.readLines(new File(filename), "utf8");
-        
-        for (String line : lines) {
-            String[] tokens = line.split("\t");
-        
-            if ( (tokens.length -1) % 2  == 1 ) 
-            	throw new Exception("Malformed File " + filename + ". id=" + tokens[0]);
-                
-            String tweetid = tokens[0];
-            ArrayList<Pair> pairs = new ArrayList<Pair>();
-            for (int i=1; i<tokens.length; i++) {
-                Pair p = new Pair(tokens[i], tokens[i+1]);
-                i++;
-                pairs.add(p);
-            }
-            result.put(tweetid, pairs);
-        }
-            
-        return result;
-    }
-
     void eval(Map<String, List<Pair>> gs, Map<String, List<Pair>> ts) 
     {
         no_tweets = gs.size();
@@ -62,7 +33,7 @@ public class Evaluate {
         }
     }
     
-    private int longestOrderedCommonSubsequence(List<Pair> gs_pairs, List<Pair> ts_pairs) 
+    int longestOrderedCommonSubsequence(List<Pair> gs_pairs, List<Pair> ts_pairs) 
     {
       int order = 0;
       int correct = 0;
@@ -100,9 +71,9 @@ public class Evaluate {
     }
     
     double F1 () {
-        return (precision() == 0 && recall() ==0 ) ? 
+        return (precision() == 0 && recall() ==0) ? 
         		0 : 
-        		(2 * precision() * recall() )/(1.0 * (precision() + recall()) );
+        	   (2 * precision() * recall() )/(1.0 * (precision() + recall()) );
     }
     
     void print() 
@@ -121,8 +92,8 @@ public class Evaluate {
                 throw new Exception("Missing inputs");
             
             // read gold set and test set
-            Map<String, List<Pair>> gs = main.readSet (args[0]);        
-            Map<String, List<Pair>> ts = main.readSet (args[1]);
+            Map<String, List<Pair>> gs = new Util().readSet (args[0]);        
+            Map<String, List<Pair>> ts = new Util().readSet (args[1]);
                 
             main.eval(gs,ts);
             main.print();            
