@@ -59,7 +59,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>fr.eurecom.nerd.inductive.Main</mainClass>
+              <mainClass>neeleval.Evaluate</mainClass>
               <addClasspath>true</addClasspath>
             </manifest>
           </archive>
