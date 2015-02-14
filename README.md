@@ -23,7 +23,7 @@ java -cp neeleval.jar neeleval.EvaluateRank GS TS x
 
 where:
 * GS (Gold Standard) tab separated file. Each line should contain i) tweetid, entityMention1, entityURI1, ... , entityMentionN, entityURIN
-* TS (Test Set) tab separated file. Each line should contain i) tweetid, entityMention1, entityURI1, ... , entityMentionN, entityURIN
+* TS (Test Set) tab separated file. Each line should contain i) tweetid, entityMention1, entityURI1;entityURI2, ... , entityMentionN, entityURIN;entityURIN+1
 * x (cut-off of the rank) integer from 1 ... n
 
 outputs:
