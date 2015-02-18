@@ -94,7 +94,7 @@ public class EvaluateRank {
     {
         System.out.printf("processed %d tweets with %d pairs; "+
                           "found: %d; correct: %d.\n", no_tweets, no_pairs, no_found, no_correct);
-        System.out.printf("precision:  %.10f; recal: %.10f; F1:  %.10f\n", precision(), recall(), F1());
+        System.out.printf("precision:  %.2f; recal: %.2f; F1:  %.2f\n", precision(), recall(), F1());
     }
     
     public static void main(String[] args) 
