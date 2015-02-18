@@ -39,13 +39,13 @@ public class EvaluateRank {
       int order = 0;
       int correct = 0;
       boolean found;
-      for (int i = 0; i< ts_pairs.size(); i++) {
+      for (int i = 0; i< gs_pairs.size(); i++) {
       	found = false;
-      	for (int j=order; j< gs_pairs.size() && !found; j++) 
+      	for (int j=order; j< ts_pairs.size() && !found; j++) 
       	{
-      		if(gs_pairs.get(i).getEntityMention().equals( ts_pairs.get(i).getEntityMention() )
+      		if(gs_pairs.get(i).getEntityMention().equals( ts_pairs.get(j).getEntityMention() )
       		   &&
-      		   contains(gs_pairs.get(i).getURL().toString(), ts_pairs.get(i).getUrls(), atRank) ) {
+      		   contains(gs_pairs.get(i).getURL().toString(), ts_pairs.get(j).getUrls(), atRank) ) {
       			order = j+1;
 	      		found = true;
 	      		correct += 1;
@@ -57,7 +57,6 @@ public class EvaluateRank {
 
 	private boolean contains(String url, Vector<String> urls, int atRank) {
 		for (int i = 0; i<urls.size() && i<atRank; i++){
-			System.out.println(urls.get(i));
 			
 			if(url.equals(urls.get(i)))
 				return true;
