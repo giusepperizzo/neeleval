@@ -10,6 +10,7 @@ public class Evaluate {
     private int no_pairs = 0;
     
     private int no_correct = 0;
+    private int no_correct_m = 0;
     private int no_found = 0;
     
     void eval(Map<String, List<Pair>> gs, Map<String, List<Pair>> ts) 
@@ -28,9 +29,27 @@ public class Evaluate {
                 List<Pair> ts_pairs = ts.get(gs_tweetid);
                 no_found += ts_pairs.size();
                 
-                no_correct += longestOrderedCommonSubsequence(gs_pairs, ts_pairs);   
+                no_correct += longestOrderedCommonSubsequence(gs_pairs, ts_pairs);
+                no_correct_m += longestOrderedCommonSubsequenceMention(gs_pairs, ts_pairs);
             }
         }
+    }
+    
+    int longestOrderedCommonSubsequenceMention(List<Pair> gs_pairs, List<Pair> ts_pairs) {
+        int order = 0;
+        int correct = 0;
+        boolean found;
+        for (int i = 0; i< ts_pairs.size(); i++) {
+            found = false;
+            for (int j=order; j< gs_pairs.size() && !found; j++) {
+                if(ts_pairs.get(i).getEntityMention().equals(gs_pairs.get(j).getEntityMention())) {
+                    order = j+1;
+                    found = true;
+                    correct += 1;
+                }
+            }
+        }
+        return correct;
     }
     
     int longestOrderedCommonSubsequence(List<Pair> gs_pairs, List<Pair> ts_pairs) 
@@ -76,11 +95,27 @@ public class Evaluate {
         	   (2 * precision() * recall() )/(1.0 * (precision() + recall()) );
     }
     
+    double precisionMention () {
+        return 100 * no_correct_m / (1.0 * no_found);
+    }
+    
+    double recallMention () {
+        return 100* no_correct_m / (1.0 * no_pairs);
+    }
+    
+    double F1Mention () {
+        return (precision() == 0 && recall() ==0) ?
+            0 :
+            (2 * precisionMention() * recallMention() )/(1.0 * (precisionMention() + recallMention()) );
+    }
+    
     void print() 
     {
         System.out.printf("processed %d tweets with %d pairs; "+
-                          "found: %d; correct: %d.\n", no_tweets, no_pairs, no_found, no_correct);
-        System.out.printf("precision:  %.2f; recal: %.2f; F1:  %.2f\n", precision(), recall(), F1());
+                          "found: %d; correct pairs: %d; correct mentions: %d.\n", no_tweets, no_pairs,
+            no_found, no_correct, no_correct_m);
+        System.out.printf("extraction score: precision:  %.2f; recal: %.2f; F1:  %.2f\n", precisionMention(), recallMention(), F1Mention());
+        System.out.printf("linking score: precision:  %.2f; recal: %.2f; F1:  %.2f\n", precision(), recall(), F1());
     }
     
     public static void main(String[] args) 
